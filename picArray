@@ -57,6 +57,39 @@
 
 
 
+ ########### PRIVATE FUNCTION TO LOOP INCOMING ARRAY,  WRITTEN HERE AND CALLED IN THE FUNCTION ABOVE
+
+        private function reArrayFiles($file)
+        	{
+        		$file_ary = array();
+        		$file_count = count($file['name']);
+        		$file_key = array_keys($file);
+        
+        		for ($i = 0; $i < $file_count; $i++) {
+        			foreach ($file_key as $val) {
+        				$file_ary[$i][$val] = $file[$val][$i];
+        			}
+        		}
+        		return $file_ary;
+        	}
+
+
+       # What this above PRIVATE FUNCTION reArrayfiles() does:
+
+        $file_ary = array()  --->  initializes an empty array called $file_ary that will store the organized information about the files in a simpler way.
+        
+        $file_count = count($file['name'])  --->   figures out how many files were uploaded by counting the number of file names.
+        
+        $file_key = array_keys($file)   --->   gets the keys (like 'name', 'type', 'tmp_name', etc.) from the original file data.
+        
+        the for-loop ----->  runs through a loop for each file and, for each piece of information (like name, type, tmp_name), it organizes them into a new array. So, instead of having separate arrays for each file detail, it creates one array for each file containing all the details.
+        
+       return $file_ary --->   Finally, it returns this organized array.
+
+
+
+
+
 
 
        
