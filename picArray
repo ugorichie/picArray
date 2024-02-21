@@ -1,17 +1,17 @@
-	  THIS REPO SIMPLY EXPLAINS THE TRICK BEHIND UPLOADING MULTIPLE ARRAY PICTURE IN -PHP-
+	 			 THIS REPO SIMPLY EXPLAINS THE TRICK BEHIND UPLOADING MULTIPLE ARRAY PICTURE IN -PHP-
 
 
-//Multiple image//
-####################################
+						//Multiple image//
+						####################################
 
-     ## $_FILES -> the superglobal array for files in PHP ##
+     						## $_FILES -> the superglobal array for files in PHP ##
 
       
 							$picture = $_FILES['sent_pictures'];                  //'sent_pictures' is the name of the array being sent//
        
 							if (!empty($picture))   //CHECK FOR IMAGE IS NOT EMPTY
 							
-                {
+               						 {
 								$img_desc = $this->reArrayFiles($picture);    //reArrayFiles() is a function written and called here, the function helps to loop the incoming array to a well understood data //
 
 								foreach ($img_desc as $val) {   //do a loop on the data from the function //
@@ -26,65 +26,65 @@
 
 								
 									if ($filesize > 6000000) {              
-                               //CHECK IF FILE SIZE IS BIGGER THAN 6MB// 
+                               							//CHECK IF FILE SIZE IS BIGGER THAN 6MB// 
 										//PASS MESSAGE
 										$message .= "Could not upload image $filename, file size was too large <br /> ";
           
 									} else {                              
-                       //UPLOAD PICTURE
+                    								   //UPLOAD PICTURE
 										$targetFile  = DIR_FS_DOCUMENT_ROOT . 'resources/images_folder/productphoto/';  // this is the root folder to which the pic was saved via move_file_uploads//
           
 										$success_upload_to_file = move_uploaded_file($newName , $targetFile)        //this moves the newFile name into the target //
 
-                    if( $success_upload_to_file){
-                            CALL THE FUNCTION THAT SUBMITS $newName to the DATABASE
-                        }else{
-                          GIVE ERROR MESSAGE
-                        }
-
-                      }
+								                    if( $success_upload_to_file){
+								                            CALL THE FUNCTION THAT SUBMITS $newName to the DATABASE
+								                        }else{
+								                          GIVE ERROR MESSAGE
+								                        }
+								
+								                      }
                         
 										//-------------------------------------------
 											}	
-									} else {
-                    echo "Error: " . $_FILES["uploadedFile"]["error"];
-                } //end if
-
-
-
-
-
-
-
-
- ########### PRIVATE FUNCTION TO LOOP INCOMING ARRAY,  WRITTEN HERE AND CALLED IN THE FUNCTION ABOVE
-
-        private function reArrayFiles($file)
-        	{
-        		$file_ary = array();
-        		$file_count = count($file['name']);
-        		$file_key = array_keys($file);
-        
-        		for ($i = 0; $i < $file_count; $i++) {
-        			foreach ($file_key as $val) {
-        				$file_ary[$i][$val] = $file[$val][$i];
-        			}
-        		}
-        		return $file_ary;
-        	}
-
-
-       # What this above PRIVATE FUNCTION reArrayfiles() does:
-
-        $file_ary = array()  --->  initializes an empty array called $file_ary that will store the organized information about the files in a simpler way.
-        
-        $file_count = count($file['name'])  --->   figures out how many files were uploaded by counting the number of file names.
-        
-        $file_key = array_keys($file)   --->   gets the keys (like 'name', 'type', 'tmp_name', etc.) from the original file data.
-        
-        the for-loop ----->  runs through a loop for each file and, for each piece of information (like name, type, tmp_name), it organizes them into a new array. So, instead of having separate arrays for each file detail, it creates one array for each file containing all the details.
-        
-       return $file_ary --->   Finally, it returns this organized array.
+																			} else {
+										                    echo "Error: " . $_FILES["uploadedFile"]["error"];
+										                } //end if
+										
+										
+										
+										
+										
+										
+										
+										
+										 ########### PRIVATE FUNCTION TO LOOP INCOMING ARRAY,  WRITTEN HERE AND CALLED IN THE FUNCTION ABOVE
+										
+										        private function reArrayFiles($file)
+										        	{
+										        		$file_ary = array();
+										        		$file_count = count($file['name']);
+										        		$file_key = array_keys($file);
+										        
+										        		for ($i = 0; $i < $file_count; $i++) {
+										        			foreach ($file_key as $val) {
+										        				$file_ary[$i][$val] = $file[$val][$i];
+										        			}
+										        		}
+										        		return $file_ary;
+										        	}
+										
+										
+										       # What this above PRIVATE FUNCTION reArrayfiles() does:
+										
+										        $file_ary = array()  --->  initializes an empty array called $file_ary that will store the organized information about the files in a simpler way.
+										        
+										        $file_count = count($file['name'])  --->   figures out how many files were uploaded by counting the number of file names.
+										        
+										        $file_key = array_keys($file)   --->   gets the keys (like 'name', 'type', 'tmp_name', etc.) from the original file data.
+										        
+										        the for-loop ----->  runs through a loop for each file and, for each piece of information (like name, type, tmp_name), it organizes them into a new array. So, instead of having separate arrays for each file detail, it creates one array for each file containing all the details.
+										        
+										       return $file_ary --->   Finally, it returns this organized array.
 
 
 
