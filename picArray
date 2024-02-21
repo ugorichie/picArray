@@ -1,0 +1,62 @@
+	  THIS REPO SIMPLY EXPLAINS THE TRICK BEHIND UPLOADING MULTIPLE ARRAY PICTURE IN -PHP-
+
+
+//Multiple image//
+####################################
+
+     ## $_FILES -> the superglobal array for files in PHP ##
+
+      
+							$picture = $_FILES['sent_pictures'];                  //'sent_pictures' is the name of the array being sent//
+       
+							if (!empty($picture))   //CHECK FOR IMAGE IS NOT EMPTY
+							
+                {
+								$img_desc = $this->reArrayFiles($picture);    //reArrayFiles() is a function written and called here, the function helps to loop the incoming array to a well understood data //
+
+								foreach ($img_desc as $val) {   //do a loop on the data from the function //
+									
+									$filename = $val['name'];
+									$filetmp = $val['tmp_name'];
+									$filesize = $val['size'];
+
+									$temp = explode(".", $filename);      //seperate the name of the file, eg: picwhats.jpg  is seperated to ->picwhats & jpg //
+         
+									$newName = round(microtime(true)) . '.' . end($temp);      //give the image a new disticnt name (in this case, time is used)//
+
+								
+									if ($filesize > 6000000) {              
+                               //CHECK IF FILE SIZE IS BIGGER THAN 6MB// 
+										//PASS MESSAGE
+										$message .= "Could not upload image $filename, file size was too large <br /> ";
+          
+									} else {                              
+                       //UPLOAD PICTURE
+										$targetFile  = DIR_FS_DOCUMENT_ROOT . 'resources/images_folder/productphoto/';  // this is the root folder to which the pic was saved via move_file_uploads//
+          
+										$success_upload_to_file = move_uploaded_file($newName , $targetFile)        //this moves the newFile name into the target //
+
+                    if( $success_upload_to_file){
+                            CALL THE FUNCTION THAT SUBMITS $newName to the DATABASE
+                        }else{
+                          GIVE ERROR MESSAGE
+                        }
+
+                      }
+                        
+										//-------------------------------------------
+											}	
+									} else {
+                    echo "Error: " . $_FILES["uploadedFile"]["error"];
+                } //end if
+
+
+
+
+
+
+
+
+
+
+       
